@@ -1,0 +1,26 @@
+{
+  "name": "zoom-fixer",
+  "version": "1.0.0",
+  "module": "src/main.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.39.1",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.0",
+    "@types/bun": "latest",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "electron": "^39.2.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-define-config": "^2.1.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "obsidian": "^1.10.3",
+    "prettier": "^3.6.2",
+    "typescript-eslint": "^8.46.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

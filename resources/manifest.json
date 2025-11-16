@@ -1,0 +1,11 @@
+{
+  "id": "zoom-fixer",
+  "name": "Zoom Fixer",
+  "description": "Forces a custom zoom factor at startup.",
+  "author": "Mariano Cavallo",
+  "authorUrl": "https://github.com/mcavallo",
+  "version": "",
+  "minAppVersion": "1.0.0",
+  "isDesktopOnly": true,
+  "js": "main.js"
+}
