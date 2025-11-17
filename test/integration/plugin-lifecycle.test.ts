@@ -69,7 +69,7 @@ describe('Plugin Lifecycle', () => {
     });
 
     test('applies zoom when workspace layout is ready', async () => {
-      let layoutReadyCallback: (() => void) | null = null;
+      let layoutReadyCallback: (() => void) | undefined;
 
       mockApp.workspace.onLayoutReady = mock((cb: () => void) => {
         layoutReadyCallback = cb;
@@ -83,7 +83,8 @@ describe('Plugin Lifecycle', () => {
       mockElectron.webFrame.setZoomFactor.mockClear();
 
       // Now invoke the layout ready callback
-      layoutReadyCallback?.();
+      expect(layoutReadyCallback).toBeDefined();
+      layoutReadyCallback!();
 
       // Should apply zoom again
       expect(mockElectron.webFrame.setZoomFactor).toHaveBeenCalledWith(1.6);
