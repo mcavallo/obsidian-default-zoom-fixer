@@ -4,12 +4,15 @@ help:
 	@echo "Available targets:"
 	@awk -F: "/^[a-zA-Z0-9_-]+:/ {target = \$$1; deps = \$$2; gsub(/^[ \t]+|[ \t]+$$/, \"\", deps); if (deps != \"\") {print target \" (\" deps \")\"} else {print target}}" Makefile | grep -v '^#' | grep -v '^\.'
 
+# --------------------------------
 # Build targets
+# --------------------------------
+
 cleanup:
 	bunx rimraf dist
 
 build_source:
-	bun build --entry src/main.ts --outdir dist --format cjs --external obsidian
+	bun scripts/build-source.ts
 
 build_manifest:
 	bun scripts/build-manifest.ts
@@ -23,7 +26,10 @@ install:
 	@cp -rf dist/* $(PLUGIN_DIR)/
 	@echo "✓ Plugin installed to $(PLUGIN_DIR)"
 
+# --------------------------------
 # Linting and formatting targets
+# --------------------------------
+
 lint:
 	bunx eslint .
 
@@ -39,10 +45,12 @@ format:
 format-check:
 	bunx prettier --check .
 
-# Run all checks (type-check, lint, format)
 check: type-check lint format-check
 
+# --------------------------------
 # Testing targets
+# --------------------------------
+
 test:
 	bun test
 
@@ -51,3 +59,10 @@ test-watch:
 
 test-coverage:
 	bun test --coverage
+
+# --------------------------------
+# Release targets
+# --------------------------------
+
+release:
+	bunx semantic-release

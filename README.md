@@ -1,4 +1,4 @@
-# Obsidian: Default Zoom Fixer
+# Default Zoom Fixer for Obsidian
 
 Fixes Obsidian's broken zoom‑level persistence on Linux (e.g. under XWayland or Wayland). Many users report that Obsidian's default zoom resets to 100% on restart, especially on Wayland/X11 setups. This plugin forces and remembers your preferred zoom level reliably.
 
