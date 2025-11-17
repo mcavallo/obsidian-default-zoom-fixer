@@ -4,7 +4,6 @@ import { mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const ROOT_DIR = import.meta.dir + '/..';
-const RESOURCES_DIR = join(ROOT_DIR, 'resources');
 const DIST_DIR = join(ROOT_DIR, 'dist');
 
 async function buildManifest() {
@@ -16,12 +15,9 @@ async function buildManifest() {
     throw new Error('No version found in package.json');
   }
 
-  // Read manifest.json
-  const manifestPath = join(RESOURCES_DIR, 'manifest.json');
+  // Read manifest.json and set the new version
+  const manifestPath = join(ROOT_DIR, 'manifest.json');
   const manifest = await Bun.file(manifestPath).json();
-
-  // Update version
-  manifest.version = version;
 
   // Ensure dist directory exists
   await mkdir(DIST_DIR, { recursive: true });
@@ -29,8 +25,11 @@ async function buildManifest() {
   // Write updated manifest to dist
   const outputPath = join(DIST_DIR, 'manifest.json');
   await Bun.write(outputPath, JSON.stringify(manifest, null, 2) + '\n');
-
   console.log(`✓ Manifest copied to dist/ with version ${version}`);
+
+  // Write to root (keep in sync)
+  await Bun.write(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
+  console.log(`✓ Manifest updated with version ${version}`);
 }
 
 buildManifest().catch((error) => {
