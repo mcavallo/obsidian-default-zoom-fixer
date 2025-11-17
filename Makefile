@@ -17,9 +17,11 @@ build_manifest:
 build: cleanup build_source build_manifest
 
 install:
-	@mkdir -p ./test/vault/.obsidian/plugins/default-zoom-fixer
-	@cp -rf dist/* ./test/vault/.obsidian/plugins/default-zoom-fixer/
-	@echo "✓ Plugin installed to ./test/vault/.obsidian/plugins/default-zoom-fixer"
+	$(eval VAULT := $(or $(VAULT_PATH),./test/vault))
+	$(eval PLUGIN_DIR := $(VAULT)/.obsidian/plugins/default-zoom-fixer)
+	@mkdir -p $(PLUGIN_DIR)
+	@cp -rf dist/* $(PLUGIN_DIR)/
+	@echo "✓ Plugin installed to $(PLUGIN_DIR)"
 
 # Linting and formatting targets
 lint:
