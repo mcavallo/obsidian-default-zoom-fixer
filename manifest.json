@@ -6,6 +6,5 @@
   "authorUrl": "https://github.com/mcavallo",
   "version": "1.0.4",
   "minAppVersion": "1.0.0",
-  "isDesktopOnly": true,
-  "js": "main.js"
+  "isDesktopOnly": true
 }
