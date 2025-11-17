@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  run-checks:
+    name: 'Run: ${{ matrix.title }}'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - title: 'Check format'
+            script: format-check
+          - title: 'Lint'
+            script: lint
+          - title: 'Type check'
+            script: type-check
+          - title: 'Tests'
+            script: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: '.bun-version'
+      - name: Install deps
+        run: bun i
+      - name: 'Run: ${{ matrix.title }}'
+        run: make ${{ matrix.script }}
