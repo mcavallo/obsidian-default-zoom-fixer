@@ -6,6 +6,11 @@ import { join } from 'node:path';
 const ROOT_DIR = import.meta.dir + '/..';
 const DIST_DIR = join(ROOT_DIR, 'dist');
 
+async function writeManifest(path: string, manifest: any): Promise<void> {
+  await Bun.write(path, JSON.stringify(manifest, null, 2) + '\n');
+  console.log(`✓ Manifest written to ${path} with version ${manifest.version}`);
+}
+
 async function buildManifest() {
   // Read package.json for version
   const packageJson = await Bun.file(join(ROOT_DIR, 'package.json')).json();
@@ -19,17 +24,15 @@ async function buildManifest() {
   const manifestPath = join(ROOT_DIR, 'manifest.json');
   const manifest = await Bun.file(manifestPath).json();
 
+  // Update version
+  manifest.version = version;
+
   // Ensure dist directory exists
   await mkdir(DIST_DIR, { recursive: true });
 
-  // Write updated manifest to dist
-  const outputPath = join(DIST_DIR, 'manifest.json');
-  await Bun.write(outputPath, JSON.stringify(manifest, null, 2) + '\n');
-  console.log(`✓ Manifest copied to dist/ with version ${version}`);
-
-  // Write to root (keep in sync)
-  await Bun.write(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
-  console.log(`✓ Manifest updated with version ${version}`);
+  // Write updated manifest to dist and root
+  await writeManifest(join(DIST_DIR, 'manifest.json'), manifest);
+  await writeManifest(manifestPath, manifest);
 }
 
 buildManifest().catch((error) => {

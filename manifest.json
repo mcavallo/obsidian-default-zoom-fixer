@@ -4,7 +4,7 @@
   "description": "Forces a default zoom factor at startup.",
   "author": "Mariano Cavallo",
   "authorUrl": "https://github.com/mcavallo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "minAppVersion": "1.0.0",
   "isDesktopOnly": true,
   "js": "main.js"
