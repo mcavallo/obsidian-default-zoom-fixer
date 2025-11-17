@@ -1,6 +1,6 @@
 {
   "name": "default-zoom-fixer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "module": "src/main.ts",
   "type": "module",
   "private": true,
