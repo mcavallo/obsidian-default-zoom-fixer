@@ -30,5 +30,11 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # IntelliJ based IDEs
 .idea
 
+# AI stuff
+.claude
+
 # Finder (MacOS) folder config
 .DS_Store
+
+# Test vault
+test/vault/.obsidian/plugins

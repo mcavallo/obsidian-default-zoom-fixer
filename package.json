@@ -1,5 +1,5 @@
 {
-  "name": "zoom-fixer",
+  "name": "default-zoom-fixer",
   "version": "1.0.0",
   "module": "src/main.ts",
   "type": "module",

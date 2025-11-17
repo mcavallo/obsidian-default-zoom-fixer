@@ -1,8 +1,8 @@
-.PHONY: list cleanup build_source build_manifest build install
-.PHONY: lint lint-fix type-check format format-check check
+.PHONY: help
 
-list:
-	@LC_ALL=C $(MAKE) -pRrq -f $(firstword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/(^|\n)# Files(\n|$$)/,/(^|\n)# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | grep -E -v -e '^[^[:alnum:]]' -e '^$@$$'
+help:
+	@echo "Available targets:"
+	@awk -F: "/^[a-zA-Z0-9_-]+:/ {target = \$$1; deps = \$$2; gsub(/^[ \t]+|[ \t]+$$/, \"\", deps); if (deps != \"\") {print target \" (\" deps \")\"} else {print target}}" Makefile | grep -v '^#' | grep -v '^\.'
 
 # Build targets
 cleanup:
@@ -17,9 +17,9 @@ build_manifest:
 build: cleanup build_source build_manifest
 
 install:
-	@mkdir -p ~/Documents/Notes/Obsidian/Notes/.obsidian/plugins/zoom-fixer
-	@cp -rf dist/* ~/Documents/Notes/Obsidian/Notes/.obsidian/plugins/zoom-fixer/
-	@echo "✓ Plugin installed to ~/Documents/Notes/Obsidian/Notes/.obsidian/plugins/zoom-fixer"
+	@mkdir -p ./test/vault/.obsidian/plugins/default-zoom-fixer
+	@cp -rf dist/* ./test/vault/.obsidian/plugins/default-zoom-fixer/
+	@echo "✓ Plugin installed to ./test/vault/.obsidian/plugins/default-zoom-fixer"
 
 # Linting and formatting targets
 lint:
@@ -39,3 +39,13 @@ format-check:
 
 # Run all checks (type-check, lint, format)
 check: type-check lint format-check
+
+# Testing targets
+test:
+	bun test
+
+test-watch:
+	bun test --watch
+
+test-coverage:
+	bun test --coverage

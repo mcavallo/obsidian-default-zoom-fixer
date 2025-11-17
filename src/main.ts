@@ -1,9 +1,17 @@
 import { Plugin } from 'obsidian';
 
-const ZOOM_FACTOR = 1.2;
+import { DEFAULT_SETTINGS } from '@/constants';
+import type { ZoomFixerPluginSettings } from '@/types';
+
+import ZoomFixerSettingTab from './settings/ZoomFixerSettingTab';
 
 export default class ZoomFixerPlugin extends Plugin {
-  override onload() {
+  settings!: ZoomFixerPluginSettings;
+
+  override async onload() {
+    await this.loadSettings();
+    this.addSettingTab(new ZoomFixerSettingTab(this.app, this));
+
     // Apply zoom immediately on plugin load
     this.applyZoomFactor();
 
@@ -11,31 +19,26 @@ export default class ZoomFixerPlugin extends Plugin {
     this.app.workspace.onLayoutReady(() => {
       this.applyZoomFactor();
     });
-
-    console.warn('Zoom Fixer plugin loaded');
   }
 
-  override onunload() {
-    console.warn('Zoom Fixer plugin unloaded');
+  async loadSettings() {
+    this.settings = Object.assign(
+      {},
+      DEFAULT_SETTINGS,
+      (await this.loadData()) as ZoomFixerPluginSettings,
+    );
   }
 
-  private applyZoomFactor(): void {
+  async saveSettings() {
+    await this.saveData(this.settings);
+  }
+
+  public applyZoomFactor(): void {
     try {
       const { webFrame } = window.require('electron');
-      webFrame.setZoomFactor(ZOOM_FACTOR);
-      console.warn(`Zoom factor set to ${ZOOM_FACTOR}`);
+      webFrame.setZoomFactor(this.settings.zoomLevel);
     } catch (error) {
       console.error('Failed to set zoom factor:', error);
-    }
-  }
-
-  private resetZoomFactor(): void {
-    try {
-      const { webFrame } = window.require('electron');
-      webFrame.setZoomFactor(1.0);
-      console.warn('Zoom factor reset to 1.0');
-    } catch (error) {
-      console.error('Failed to reset zoom factor:', error);
     }
   }
 }

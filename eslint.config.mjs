@@ -6,7 +6,13 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   // Global ignores
   {
-    ignores: ['dist/**', 'node_modules/**', '*.config.{js,mjs,cjs}', '.obsidian/**'],
+    ignores: [
+      '{.claude,.idea,.obsidian}/**',
+      'node_modules/**',
+      'dist/**',
+      'scripts/**',
+      '*.config.{js,mjs,cjs}',
+    ],
   },
 
   // Base ESLint recommended rules
@@ -64,6 +70,22 @@ export default tseslint.config(
       'prefer-const': 'error',
       'no-var': 'error',
       eqeqeq: ['error', 'always', { null: 'ignore' }],
+    },
+  },
+
+  // Relaxed rules for test files
+  {
+    files: ['test/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/await-thenable': 'off',
     },
   },
 

@@ -1,7 +1,7 @@
 {
-  "id": "zoom-fixer",
-  "name": "Zoom Fixer",
-  "description": "Forces a custom zoom factor at startup.",
+  "id": "default-zoom-fixer",
+  "name": "Default Zoom Fixer",
+  "description": "Forces a default zoom factor at startup.",
   "author": "Mariano Cavallo",
   "authorUrl": "https://github.com/mcavallo",
   "version": "",

@@ -1,4 +1,4 @@
-# zoom-fixer
+# Default Zoom Fixer
 
 To install dependencies:
 
