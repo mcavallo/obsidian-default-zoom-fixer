@@ -1,6 +1,6 @@
 {
   "name": "default-zoom-fixer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "module": "src/main.ts",
   "type": "module",
   "private": true,
@@ -12,6 +12,7 @@
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.2",
+    "@semantic-release/npm": "^13.1.2",
     "@trivago/prettier-plugin-sort-imports": "^6.0.0",
     "@types/bun": "latest",
     "@typescript-eslint/eslint-plugin": "^8.46.4",
