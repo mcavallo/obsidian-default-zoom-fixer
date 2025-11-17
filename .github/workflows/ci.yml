@@ -6,31 +6,31 @@ on:
       - master
 
 concurrency:
-  group: "${{ github.workflow }}-${{ github.ref }}"
+  group: '${{ github.workflow }}-${{ github.ref }}'
   cancel-in-progress: true
 
 jobs:
   run-checks:
-    name: "Run: ${{ matrix.title }}"
+    name: 'Run: ${{ matrix.title }}'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
       matrix:
         include:
-          - title: "Check format"
+          - title: 'Check format'
             script: format-check
-          - title: "Lint"
+          - title: 'Lint'
             script: lint
-          - title: "Type check"
+          - title: 'Type check'
             script: type-check
-          - title: "Tests"
+          - title: 'Tests'
             script: test
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version-file: ".bun-version"
+          bun-version-file: '.bun-version'
       - name: Install deps
         run: bun i
-      - name: "Run: ${{ matrix.title }}"
+      - name: 'Run: ${{ matrix.title }}'
         run: make ${{ matrix.script }}

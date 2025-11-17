@@ -21,7 +21,7 @@ jobs:
           persist-credentials: false
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version-file: ".bun-version"
+          bun-version-file: '.bun-version'
       - name: Install deps
         run: bun i
       - name: Release
