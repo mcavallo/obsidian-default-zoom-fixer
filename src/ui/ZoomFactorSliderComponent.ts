@@ -13,9 +13,4 @@ export default class ZoomFactorSliderComponent extends SliderComponent {
   override getValuePretty() {
     return formatFactorAsPercentage(this.getValue());
   }
-
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  override onChange(callback: (value: number) => any): this {
-    return super.onChange(callback);
-  }
 }
