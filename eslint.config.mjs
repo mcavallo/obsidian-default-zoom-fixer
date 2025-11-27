@@ -10,6 +10,7 @@ export default tseslint.config(
       '{.claude,.idea,.obsidian}/**',
       'node_modules/**',
       'dist/**',
+      'test/vault/**',
       'scripts/**',
       '*.config.{js,mjs,cjs}',
     ],
